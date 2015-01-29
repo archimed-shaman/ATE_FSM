@@ -5,7 +5,7 @@ Simple Actor-FSM library
 
 Example:
 
-```c_cpp
+```c++
 #include <iostream>
 #include <thread>
 #include <random>
@@ -144,4 +144,26 @@ int main()
 
     return 0;
 }
+```
+
+Output:
+
+```
+$ ./a.out 
+F received from S: 1
+F -> ONE
+S received from F: 1
+S -> ONE
+F received from S: 1
+F -> ONE
+S received from F: 2
+S -> ONE
+F received from S: 3
+F -> ONE
+S received from F: 5
+S -> ONE
+F received from S: 8
+F -> TWO
+S -> TWO
+Stopping:
 ```
