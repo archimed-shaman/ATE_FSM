@@ -20,9 +20,9 @@
     else if(Type *Var = MatchGroup<Type>(getValue().get())) 
 
 #define IF_SIGNAL(Type, Var) \
-    if(Type *Var = MatchSignal<Type>(getValue().get())) 
+    if(Type *Var = cle::fsm::MatchSignal<Type>(getValue().get())) 
 
 #define ELIF_SIGNAL(Type, Var) \
-    else if(Type *Var = MatchSignal<Type>(getValue().get())) 
+    else if(Type *Var = cle::fsm::MatchSignal<Type>(getValue().get())) 
 
 #define ELSE else
