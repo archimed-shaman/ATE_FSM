@@ -1,21 +1,16 @@
 #pragma once
 
-namespace cle
-{
-namespace fsm
-{
-
 
 #define STATE(ClassName, StateName) \
     friend class St_##StateName; \
-    State& StateName(); \
-    class St_##StateName : public State \
+    cle::fsm::State& StateName(); \
+    class St_##StateName : public cle::fsm::State \
     { \
         public: \
-        virtual State* RunState(AStateMachine *pStateMachine){return &(static_cast<ClassName *>(pStateMachine))->StateName();}; \
+        virtual cle::fsm::State* RunState(AStateMachine *pStateMachine){return &(static_cast<ClassName *>(pStateMachine))->StateName();}; \
     } state_##StateName
 
-#define STATE_BODY(ClassName, StateName) State& ClassName::StateName()
+#define STATE_BODY(ClassName, StateName) cle::fsm::State& ClassName::StateName()
 
 
 #define IF_GROUP(Type, Var) \
@@ -31,7 +26,3 @@ namespace fsm
     else if(Type *Var = MatchSignal<Type>(getValue().get())) 
 
 #define ELSE else
-
-
-} // namespace fsm
-} // namespace cle
