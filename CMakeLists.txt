@@ -30,5 +30,5 @@ INSTALL (TARGETS ${PROJECT}
          LIBRARY DESTINATION lib
          COMPONENT library)
 INSTALL (FILES ${HEADERS}
-        DESTINATION "../include/${PROJECT}"
+        DESTINATION "include/${PROJECT}"
         )
