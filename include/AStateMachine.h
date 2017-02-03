@@ -18,8 +18,13 @@ public:
     virtual State& reset()
     {
         clear();
-        return getInitialState();
+        auto& state = getInitialState();
+        setState(state);
+        return state;
     }
+
+protected:
+    virtual void setState(State&) = 0;
 };
 
 } // namespace fsm

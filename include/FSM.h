@@ -67,6 +67,11 @@ public AExecutableMachine, public AStateMachine, public AActor<std::shared_ptr<T
 
     protected:
 
+    virtual void setState(State & state) override
+    {
+        m_pCurrentState = &state;
+    };
+
     void Schedule()
     {
         std::lock_guard<std::mutex> lock(m_Mutex);
