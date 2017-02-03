@@ -39,6 +39,7 @@ public AStateMachine, public AActor<std::shared_ptr<T>>
         }
 
         m_pCurrentState = m_pCurrentState->RunState(this);
+        m_CurrentValue.reset();
 
         while (true)
         {
@@ -53,6 +54,7 @@ public AStateMachine, public AActor<std::shared_ptr<T>>
                 m_Queue.pop_front();
             }
             m_pCurrentState = m_pCurrentState->RunState(this);
+            m_CurrentValue.reset();
         }
     }
 
