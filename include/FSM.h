@@ -20,20 +20,21 @@ class IMachineManager;
 
 template <class T>
 class FSM :
-public AExecutableMachine, public AStateMachine, public AActor<T>
+public AExecutableMachine, public AStateMachine, public AActor<std::shared_ptr<T>>
 {
-    typedef std::list<T> t_queue;
+    using t_ptr = std::shared_ptr<T>;
+    using t_queue = std::list<t_ptr>;
 
-public:
+    public:
 
-    FSM(std::shared_ptr<IMachineManager> pMgr, State &InitialState) :
-    AExecutableMachine(pMgr),
-    m_lActive(false),
-    m_pCurrentState(&InitialState) { };
+    FSM(std::shared_ptr<IMachineManager> pMgr, State & InitialState) :
+            AExecutableMachine(pMgr),
+            m_lActive(false),
+            m_pCurrentState(&InitialState) { };
 
-public:
+    public:
 
-    virtual void Proceed()
+    virtual void Proceed() override
     {
         if (!m_pCurrentState)
             return;
@@ -44,7 +45,7 @@ public:
                 return;
             m_lActive = true;
 
-            m_CurrentValue = m_Queue.front();
+            m_CurrentValue = std::move(m_Queue.front());
             m_Queue.pop_front();
         }
 
@@ -54,7 +55,7 @@ public:
         Schedule();
     }
 
-    virtual void Send(T entry)
+    virtual void Send(const t_ptr & entry) override
     {
         {
             std::lock_guard<std::mutex> lock(m_Mutex);
@@ -63,7 +64,7 @@ public:
         Schedule();
     }
 
-protected:
+    protected:
 
     void Schedule()
     {
@@ -75,17 +76,17 @@ protected:
         Register();
     }
 
-    virtual T& getValue()
+    virtual t_ptr & getValue() override
     {
         return m_CurrentValue;
     }
 
-private:
+    private:
     t_queue m_Queue;
     bool m_lActive;
     std::mutex m_Mutex;
     State *m_pCurrentState = nullptr;
-    T m_CurrentValue;
+    t_ptr m_CurrentValue;
 };
 
 } // namespace fsm

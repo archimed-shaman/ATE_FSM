@@ -10,17 +10,18 @@ namespace fsm
 
 template <class T>
 class DirectFSM :
-public AStateMachine, public AActor<T>
+public AStateMachine, public AActor<std::shared_ptr<T>>
 {
-    typedef std::list<T> t_queue;
+    using t_ptr = std::shared_ptr<T>;
+    using t_queue = std::list<t_ptr>;
 
-public:
+    public:
 
-    DirectFSM(State &InitialState) :
-    m_lActive(false),
-    m_pCurrentState(&InitialState) { };
+    DirectFSM(State & InitialState) :
+            m_lActive(false),
+            m_pCurrentState(&InitialState) { };
 
-    virtual void Send(T entry)
+    virtual void Send(const t_ptr & entry) override
     {
         if (!m_pCurrentState)
             return;
@@ -55,20 +56,20 @@ public:
         }
     }
 
-protected:
+    protected:
 
-    virtual T& getValue()
+    virtual t_ptr & getValue() override
     {
         return m_CurrentValue;
     }
 
-private:
+    private:
     t_queue m_Queue;
     bool m_lActive;
     std::mutex m_Mutex;
 
     State *m_pCurrentState = nullptr;
-    T m_CurrentValue;
+    t_ptr m_CurrentValue;
 };
 
 } // namespace fsm

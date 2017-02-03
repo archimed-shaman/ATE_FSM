@@ -9,7 +9,7 @@ template <class T>
 class AActor
 {
 public:
-    virtual void Send(T entry) = 0;
+    virtual void Send(const T& entry) = 0;
 
 protected:
     virtual T& getValue() = 0;
