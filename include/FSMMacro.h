@@ -14,15 +14,15 @@
 
 
 #define IF_GROUP(Type, Var) \
-    if(Type *Var = MatchGroup<Type>(getValue().get())) 
+    if(auto Var = std::move(MatchGroup<Type>(getValue())))
 
 #define ELIF_GROUP(Type, Var) \
-    else if(Type *Var = MatchGroup<Type>(getValue().get())) 
+    else if(auto Var = std::move(MatchGroup<Type>(getValue())))
 
 #define IF_SIGNAL(Type, Var) \
-    if(Type *Var = cle::fsm::MatchSignal<Type>(getValue().get())) 
+    if(auto Var = std::move(cle::fsm::MatchSignal<Type>(getValue())))
 
 #define ELIF_SIGNAL(Type, Var) \
-    else if(Type *Var = cle::fsm::MatchSignal<Type>(getValue().get())) 
+    else if(auto Var = std::move(cle::fsm::MatchSignal<Type>(getValue()))) 
 
 #define ELSE else

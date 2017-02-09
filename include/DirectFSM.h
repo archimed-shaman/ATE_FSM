@@ -58,6 +58,11 @@ public AStateMachine, public AActor<std::shared_ptr<T>>
         }
     }
 
+    virtual State & getCurrentState() override
+    {
+        return *m_pCurrentState;
+    }
+
     protected:
 
     virtual void setState(State & state) override

@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace cle
 {
 namespace fsm
@@ -11,22 +12,26 @@ public:
     virtual ~Signal() = default;
 };
 
+using t_SignalPtr = std::shared_ptr<Signal>;
+
 class Group
 {
 public:
     virtual ~Group() = default;
 };
 
+using t_GroupPtr = std::shared_ptr<Group>;
+
 template<class T>
-T* MatchSignal(Signal *pSignal)
+std::shared_ptr<T> MatchSignal(t_SignalPtr pSignal)
 {
-    return dynamic_cast<T*> (pSignal);
+    return std::dynamic_pointer_cast<T> (pSignal);
 }
 
 template<class T>
-T* MatchGroup(Group *pGroup)
+std::shared_ptr<T> MatchGroup(Group pGroup)
 {
-    return dynamic_cast<T*> (pGroup);
+    return std::dynamic_pointer_cast<T> (pGroup);
 }
 
 } // namespace fsm

@@ -56,6 +56,11 @@ public AExecutableMachine, public AStateMachine, public AActor<std::shared_ptr<T
         Schedule();
     }
 
+    virtual State & getCurrentState() override
+    {
+        return *m_pCurrentState;
+    }
+
     virtual void Send(const t_ptr & entry) override
     {
         {

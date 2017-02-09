@@ -14,6 +14,7 @@ public:
     virtual ~AStateMachine() = default;
     virtual void clear() = 0;
     virtual State& getInitialState() = 0;
+    virtual State& getCurrentState() = 0;
 
     virtual State& reset()
     {
