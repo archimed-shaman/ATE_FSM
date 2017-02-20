@@ -3,6 +3,7 @@
 #include <list>
 #include <atomic>
 #include <mutex>
+#include <memory>
 #include <condition_variable>
 
 #include "AMachineManager.h"
